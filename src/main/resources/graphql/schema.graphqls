@@ -1,0 +1,38 @@
+type Question {
+    id: ID!
+    question: String!
+    answer: String!
+    module: Module!
+    topic: MainTopic!
+    keywords: [String]!
+    author: Author!
+}
+
+type Module {
+    id: ID!
+    name: String!
+}
+
+type MainTopic {
+    id: ID!
+    name: String!
+    subtopics: [Subtopic]!
+}
+
+type Subtopic {
+    id: ID!
+    name: String!
+}
+
+type Author {
+    id: ID!
+    name: String!
+}
+
+type Query {
+    questions(limit: Int): [Question]!
+    module(limit: Int): [Question]!
+    mainTopics(limit: Int): [Question]!
+    subTopics(limit: Int): [Question]!
+    keywords(keywords: [String!]!, limit: Int): [Question]!
+}
