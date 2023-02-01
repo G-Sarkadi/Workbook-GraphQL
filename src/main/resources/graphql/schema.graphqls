@@ -2,15 +2,10 @@ type Question {
     id: ID!
     question: String!
     answer: String!
-    module: ModuleRoom!
+    module: String!
     topic: MainTopic!
-    keywords: [String]!
+    keywords: [Keyword]!
     author: Author!
-}
-
-type ModuleRoom {
-    id: ID!
-    name: String!
 }
 
 type MainTopic {
@@ -27,6 +22,11 @@ type Subtopic {
 type Author {
     id: ID!
     name: String!
+}
+
+type Keyword {
+    id: ID!
+    keyword: String!
 }
 
 type Query {

@@ -2,6 +2,7 @@ package com.example.workbookgraphql.model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -11,6 +12,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
+@Builder
 public class MainTopic {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
