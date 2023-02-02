@@ -57,7 +57,7 @@ public class QuestionService {
         Keyword keyword2 = keywordRepository.save(Keyword.builder().keyword("java").build());
         Keyword keyword3 = keywordRepository.save(Keyword.builder().keyword("sql").build());
 
-        List<Keyword> kwlist = Arrays.asList(keyword1, keyword2, keyword3);
+//        List<Keyword> kwlist = Arrays.asList(keyword1, keyword2, keyword3);
 
         Subtopic subtopic1 = subtopicRepository.save(Subtopic.builder().name("sub topic1").build());
         Subtopic subtopic2 = subtopicRepository.save(Subtopic.builder().name("sub topic2").build());
@@ -67,16 +67,26 @@ public class QuestionService {
                 .build();
         MainTopic maintp = mainTopicRepository.save(mainTopic);
 
-        Question question = Question.builder()
-                .question("valami?")
+        Question question1 = Question.builder()
+                .question("kérdés?")
                 .answer("válasz!")
                 .author(auth1)
                 .topic(maintp)
-                .keywords(kwlist)
+                .keywords(Arrays.asList(keyword1, keyword2))
                 .module(ModuleRoom.WEB)
                 .build();
 
-        questionRepository.save(question);
+        Question question2 = Question.builder()
+                .question("question?")
+                .answer("answer!")
+                .author(auth1)
+                .topic(maintp)
+                .keywords(Arrays.asList(keyword1, keyword3))
+                .module(ModuleRoom.WEB)
+                .build();
+
+        questionRepository.save(question1);
+        questionRepository.save(question2);
 
     }
 
