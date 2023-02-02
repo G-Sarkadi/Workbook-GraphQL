@@ -31,22 +31,17 @@ public class QuestionService {
         init();
     }
 
-    @Autowired
-
-
-    public List<Question> getAllQuestions() {
-        return questionRepository.findAll();
-    }
-
     public List<Question> getAllQuestions(Integer limit) {
+        if (limit == null) {
+            return questionRepository.findAll();
+        }
         return questionRepository.getAllQuestionsWithLimit(PageRequest.of(0,limit));
     }
 
-    public List<Question> getQuestionsFromModule(ModuleRoom module) {
-        return questionRepository.findByModule(module);
-    }
-
     public List<Question> getQuestionsFromModule(ModuleRoom module, Integer limit) {
+        if (limit == null){
+            return questionRepository.findByModule(module);
+        }
         return questionRepository.findByModule(module, PageRequest.of(0,limit));
     }
 
@@ -56,8 +51,6 @@ public class QuestionService {
         Keyword keyword1 = keywordRepository.save(Keyword.builder().keyword("python").build());
         Keyword keyword2 = keywordRepository.save(Keyword.builder().keyword("java").build());
         Keyword keyword3 = keywordRepository.save(Keyword.builder().keyword("sql").build());
-
-//        List<Keyword> kwlist = Arrays.asList(keyword1, keyword2, keyword3);
 
         Subtopic subtopic1 = subtopicRepository.save(Subtopic.builder().name("sub topic1").build());
         Subtopic subtopic2 = subtopicRepository.save(Subtopic.builder().name("sub topic2").build());
