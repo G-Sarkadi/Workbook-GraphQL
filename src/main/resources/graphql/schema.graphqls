@@ -36,10 +36,14 @@ enum Module {
     ADVANCED
 }
 
+input MainTopicInput {
+    name: String!
+}
+
 type Query {
     questions(limit: Int): [Question]!
     module(module: Module!, limit: Int): [Question]!
-    mainTopics(limit: Int): [Question]!
+    mainTopics(mainTopicInput: MainTopicInput!, limit: Int): [Question]!
     subTopics(limit: Int): [Question]!
     keywords(keywords: [String!]!, limit: Int): [Question]!
 }

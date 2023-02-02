@@ -17,4 +17,8 @@ public interface QuestionRepository extends JpaRepository<Question, Long> {
     List<Question> findByModule(ModuleRoom module);
 
     List<Question> findByModule(ModuleRoom module, Pageable pageable);
+
+    List<Question> findByTopicName(String name);
+
+    List<Question> findByTopicName(String name, Pageable pageable);
 }

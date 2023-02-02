@@ -1,5 +1,6 @@
 package com.example.workbookgraphql.controller;
 
+import com.example.workbookgraphql.model.MainTopic;
 import com.example.workbookgraphql.model.ModuleRoom;
 import com.example.workbookgraphql.service.QuestionService;
 import lombok.AllArgsConstructor;
@@ -23,5 +24,10 @@ public class QuestionController {
     @QueryMapping
     public List<Question> module(@Argument ModuleRoom module, @Argument Integer limit) {
         return questionService.getQuestionsFromModule(module, limit);
+    }
+
+    @QueryMapping
+    public List<Question> mainTopics(@Argument("mainTopicInput") MainTopic mainTopic, @Argument Integer limit) {
+        return questionService.getQuestionsFromTopic(mainTopic, limit);
     }
 }

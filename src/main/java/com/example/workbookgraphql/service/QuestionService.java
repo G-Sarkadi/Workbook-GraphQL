@@ -28,7 +28,7 @@ public class QuestionService {
         this.keywordRepository = keywordRepository;
         this.mainTopicRepository = mainTopicRepository;
         this.subtopicRepository = subtopicRepository;
-        init();
+//        init();
     }
 
     public List<Question> getAllQuestions(Integer limit) {
@@ -43,6 +43,13 @@ public class QuestionService {
             return questionRepository.findByModule(module);
         }
         return questionRepository.findByModule(module, PageRequest.of(0,limit));
+    }
+
+    public List<Question> getQuestionsFromTopic(MainTopic mainTopic, Integer limit) {
+        if (limit == null){
+            return questionRepository.findByTopicName(mainTopic.getName());
+        }
+        return questionRepository.findByTopicName(mainTopic.getName(), PageRequest.of(0,limit));
     }
 
     private void init() {
