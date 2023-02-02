@@ -8,7 +8,6 @@ import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.stereotype.Controller;
 import com.example.workbookgraphql.model.Question;
-
 import java.util.List;
 
 @Controller
@@ -27,7 +26,12 @@ public class QuestionController {
     }
 
     @QueryMapping
-    public List<Question> mainTopics(@Argument("mainTopicInput") MainTopic mainTopic, @Argument Integer limit) {
+    public List<Question> mainTopics(@Argument("mainTopic") MainTopic mainTopic, @Argument Integer limit) {
         return questionService.getQuestionsFromTopic(mainTopic, limit);
+    }
+
+    @QueryMapping
+    public List<Question> subtopics(@Argument("subtopics") List<String> subtopics, @Argument Integer limit){
+        return questionService.getQuestionsFromSubTopic(subtopics, limit);
     }
 }

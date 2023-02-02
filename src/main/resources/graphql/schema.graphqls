@@ -40,10 +40,14 @@ input MainTopicInput {
     name: String!
 }
 
+#input SubtopicInput {
+#    name: [String]!
+#}
+
 type Query {
     questions(limit: Int): [Question]!
     module(module: Module!, limit: Int): [Question]!
-    mainTopics(mainTopicInput: MainTopicInput!, limit: Int): [Question]!
-    subTopics(limit: Int): [Question]!
+    mainTopics(mainTopic: MainTopicInput!, limit: Int): [Question]!
+    subtopics(subtopics: [String]!, limit: Int): [Question]!
     keywords(keywords: [String!]!, limit: Int): [Question]!
 }
