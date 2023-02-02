@@ -15,7 +15,7 @@ import java.util.List;
 @Builder
 public class MainTopic {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String name;
     @OneToMany

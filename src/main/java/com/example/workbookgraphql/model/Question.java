@@ -16,7 +16,7 @@ import java.util.List;
 public class Question {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String question;
     private String answer;
@@ -24,7 +24,7 @@ public class Question {
     private ModuleRoom module;
     @ManyToOne
     private MainTopic topic;
-    @OneToMany
+    @ManyToMany
     private List<Keyword> keywords;
     @ManyToOne
     private Author author;

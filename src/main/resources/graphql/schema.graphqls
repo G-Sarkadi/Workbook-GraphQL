@@ -2,7 +2,7 @@ type Question {
     id: ID!
     question: String!
     answer: String!
-    module: String!
+    module: Module!
     topic: MainTopic!
     keywords: [Keyword]!
     author: Author!
@@ -29,10 +29,16 @@ type Keyword {
     keyword: String!
 }
 
+enum Module {
+    PROGBASICS
+    WEB
+    OOP
+    ADVANCED
+}
+
 type Query {
     questions(limit: Int): [Question]!
-    answeredQuestions(limit: Int): [Question]!
-    module(limit: Int): [Question]!
+    module(module: Module!, limit: Int): [Question]!
     mainTopics(limit: Int): [Question]!
     subTopics(limit: Int): [Question]!
     keywords(keywords: [String!]!, limit: Int): [Question]!

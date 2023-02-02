@@ -42,12 +42,23 @@ public class QuestionService {
         return questionRepository.getAllQuestionsWithLimit(PageRequest.of(0,limit));
     }
 
+    public List<Question> getQuestionsFromModule(ModuleRoom module) {
+        return questionRepository.findByModule(module);
+    }
+
+    public List<Question> getQuestionsFromModule(ModuleRoom module, Integer limit) {
+        return questionRepository.findByModule(module, PageRequest.of(0,limit));
+    }
+
     private void init() {
         Author auth1 = authorRepository.save(Author.builder().name("Bob").build());
+
         Keyword keyword1 = keywordRepository.save(Keyword.builder().keyword("python").build());
         Keyword keyword2 = keywordRepository.save(Keyword.builder().keyword("java").build());
         Keyword keyword3 = keywordRepository.save(Keyword.builder().keyword("sql").build());
+
         List<Keyword> kwlist = Arrays.asList(keyword1, keyword2, keyword3);
+
         Subtopic subtopic1 = subtopicRepository.save(Subtopic.builder().name("sub topic1").build());
         Subtopic subtopic2 = subtopicRepository.save(Subtopic.builder().name("sub topic2").build());
         MainTopic mainTopic = MainTopic.builder()
@@ -68,4 +79,5 @@ public class QuestionService {
         questionRepository.save(question);
 
     }
+
 }
