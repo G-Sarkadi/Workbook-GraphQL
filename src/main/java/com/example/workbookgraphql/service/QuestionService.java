@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class QuestionService {
@@ -35,36 +36,43 @@ public class QuestionService {
         if (limit == null) {
             return questionRepository.findAll();
         }
-        return questionRepository.getAllQuestionsWithLimit(PageRequest.of(0,limit));
+        return questionRepository.getAllQuestionsWithLimit(PageRequest.of(0, limit));
     }
 
     public List<Question> getQuestionsFromModule(ModuleRoom module, Integer limit) {
-        if (limit == null){
+        if (limit == null) {
             return questionRepository.findByModule(module);
         }
-        return questionRepository.findByModule(module, PageRequest.of(0,limit));
+        return questionRepository.findByModule(module, PageRequest.of(0, limit));
     }
 
     public List<Question> getQuestionsFromTopic(MainTopic mainTopic, Integer limit) {
-        if (limit == null){
+        if (limit == null) {
             return questionRepository.findByTopicName(mainTopic.getName());
         }
-        return questionRepository.findByTopicName(mainTopic.getName(), PageRequest.of(0,limit));
+        return questionRepository.findByTopicName(mainTopic.getName(), PageRequest.of(0, limit));
     }
 
     public List<Question> getQuestionsFromSubTopic(List<String> input, Integer limit) {
-        if (limit == null){
+        if (limit == null) {
             return questionRepository.findBySubtopicName(input);
         }
         return questionRepository.findBySubtopicName(input, limit);
     }
 
+    public List<Question> getQuestionsByKeyword(List<String> keywords, Integer limit) {
+        if (limit == null) {
+            return questionRepository.findByKeywords(keywords);
+        }
+        return questionRepository.findByKeywords(keywords, PageRequest.of(0, limit));
+    }
+
     private void init() {
         Author auth1 = authorRepository.save(Author.builder().name("Bob").build());
 
-        Keyword keyword1 = keywordRepository.save(Keyword.builder().keyword("python").build());
-        Keyword keyword2 = keywordRepository.save(Keyword.builder().keyword("java").build());
-        Keyword keyword3 = keywordRepository.save(Keyword.builder().keyword("sql").build());
+        Keyword keyword1 = keywordRepository.save(Keyword.builder().name("python").build());
+        Keyword keyword2 = keywordRepository.save(Keyword.builder().name("java").build());
+        Keyword keyword3 = keywordRepository.save(Keyword.builder().name("sql").build());
 
         Subtopic subtopic1 = subtopicRepository.save(Subtopic.builder().name("sub topic1").build());
         Subtopic subtopic2 = subtopicRepository.save(Subtopic.builder().name("sub topic2").build());

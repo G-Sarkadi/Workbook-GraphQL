@@ -17,5 +17,5 @@ public class Keyword {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private String keyword;
+    private String name;
 }

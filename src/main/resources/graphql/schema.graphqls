@@ -39,7 +39,7 @@ type Author {
 
 type Keyword {
     id: ID!
-    keyword: String!
+    name: String!
 }
 
 type MainTopic {

@@ -1,5 +1,6 @@
 package com.example.workbookgraphql.controller;
 
+import com.example.workbookgraphql.model.Keyword;
 import com.example.workbookgraphql.model.MainTopic;
 import com.example.workbookgraphql.model.ModuleRoom;
 import com.example.workbookgraphql.service.QuestionService;
@@ -8,6 +9,7 @@ import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.stereotype.Controller;
 import com.example.workbookgraphql.model.Question;
+
 import java.util.List;
 
 @Controller
@@ -16,7 +18,7 @@ public class QuestionController {
     private QuestionService questionService;
 
     @QueryMapping
-    public List<Question> questions(@Argument Integer limit ) {
+    public List<Question> questions(@Argument Integer limit) {
         return questionService.getAllQuestions(limit);
     }
 
@@ -31,7 +33,12 @@ public class QuestionController {
     }
 
     @QueryMapping
-    public List<Question> subtopics(@Argument("subtopics") List<String> subtopics, @Argument Integer limit){
+    public List<Question> subtopics(@Argument("subtopics") List<String> subtopics, @Argument Integer limit) {
         return questionService.getQuestionsFromSubTopic(subtopics, limit);
+    }
+
+    @QueryMapping
+    public List<Question> keywords(@Argument("keywords") List<String> keywords, @Argument Integer limit) {
+        return questionService.getQuestionsByKeyword(keywords, limit);
     }
 }

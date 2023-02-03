@@ -1,5 +1,6 @@
 package com.example.workbookgraphql.repository;
 
+import com.example.workbookgraphql.model.Keyword;
 import com.example.workbookgraphql.model.ModuleRoom;
 import com.example.workbookgraphql.model.Question;
 import org.springframework.data.domain.Pageable;
@@ -23,7 +24,7 @@ public interface QuestionRepository extends JpaRepository<Question, Long> {
     List<Question> findByTopicName(String name, Pageable pageable);
 
     @Query(nativeQuery = true, value= """
-            SELECT question.id,
+            SELECT DISTINCT question.id,
                    question.answer,
                    question.module,
                    question.question,
@@ -37,7 +38,7 @@ public interface QuestionRepository extends JpaRepository<Question, Long> {
     List<Question> findBySubtopicName(List<String> subtopics);
 
     @Query(nativeQuery = true, value= """
-            SELECT question.id,
+            SELECT DISTINCT question.id,
                    question.answer,
                    question.module,
                    question.question,
@@ -50,4 +51,31 @@ public interface QuestionRepository extends JpaRepository<Question, Long> {
             where s.name in :subtopics
             limit :limit""")
     List<Question> findBySubtopicName(List<String> subtopics, Integer limit);
+
+    @Query(nativeQuery = true, value= """
+            SELECT DISTINCT question.id,
+                   question.answer,
+                   question.module,
+                   question.question,
+                   question.author_id,
+                   question.topic_id
+            FROM question
+            join question_keywords qk on question.id = qk.question_id
+            join keyword k on k.id = qk.keywords_id
+            where k.name in :keywords""")
+    List<Question> findByKeywords(List<String> keywords);
+
+    @Query(nativeQuery = true, value= """
+            SELECT DISTINCT question.id,
+                   question.answer,
+                   question.module,
+                   question.question,
+                   question.author_id,
+                   question.topic_id
+            FROM question
+            join question_keywords qk on question.id = qk.question_id
+            join keyword k on k.id = qk.keywords_id
+            where k.name in :keywords
+            limit :limit""")
+    List<Question> findByKeywords(List<String> keywords, Pageable pageable);
 }
