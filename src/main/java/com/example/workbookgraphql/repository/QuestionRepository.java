@@ -49,7 +49,7 @@ public interface QuestionRepository extends JpaRepository<Question, Long> {
             join keyword k on k.id = qk.keywords_id
             where k.name in :keywords
             limit :limit""")
-    List<Question> findByKeywords(List<String> keywords, Pageable pageable);
+    List<Question> findByKeywords(List<String> keywords, Integer limit);
 
     List<Question> findByTopicMainTopicName(String mainTopic);
 

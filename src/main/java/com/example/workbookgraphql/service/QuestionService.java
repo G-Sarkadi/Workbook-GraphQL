@@ -64,7 +64,7 @@ public class QuestionService {
         if (limit == null) {
             return questionRepository.findByKeywords(keywords);
         }
-        return questionRepository.findByKeywords(keywords, PageRequest.of(0, limit));
+        return questionRepository.findByKeywords(keywords, limit);
     }
 
     private void init() {
