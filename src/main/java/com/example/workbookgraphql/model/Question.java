@@ -24,7 +24,7 @@ public class Question {
     @Enumerated(EnumType.STRING)
     private ModuleRoom module;
     @ManyToOne
-    private MainTopic topic;
+    private Topic topic;
     @ManyToMany
     private List<Keyword> keywords;
     @ManyToOne

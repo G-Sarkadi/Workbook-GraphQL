@@ -8,9 +8,9 @@ type Query {
     # Fetch questions based on the module/room
     module(module: Module!, limit: Int): [Question]!
     # Fetch questions based on the main topic
-    mainTopics(mainTopic: MainTopicInput!, limit: Int): [Question]!
+    mainTopic(mainTopic: MainTopicInput!, limit: Int): [Question]!
     # Fetch questions based on the subtopics
-    subtopics(subtopics: [String]!, limit: Int): [Question]!
+    topic(topic: TopicInput!, limit: Int): [Question]!
     # Fetch questions based on the keywords
     keywords(keywords: [String!]!, limit: Int): [Question]!
 }
@@ -25,7 +25,7 @@ type Question {
     # The module/room it belongs
     module: Module!
     # The main topic and subtopic of the question
-    topic: MainTopic!
+    topic: Topic!
     # Keywords of the question
     keywords: [Keyword]!
     # Author of the answer
@@ -45,12 +45,12 @@ type Keyword {
 type MainTopic {
     id: ID!
     name: String!
-    subtopics: [Subtopic]!
 }
 
-type Subtopic {
+type Topic {
     id: ID!
     name: String!
+    mainTopic: MainTopic!
 }
 
 enum Module {
@@ -58,6 +58,10 @@ enum Module {
     WEB
     ADVANCED
     OOP
+}
+
+input TopicInput {
+    name: String!
 }
 
 input MainTopicInput {

@@ -1,9 +1,9 @@
 package com.example.workbookgraphql.repository;
 
-import com.example.workbookgraphql.model.Subtopic;
+import com.example.workbookgraphql.model.Topic;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface SubtopicRepository extends JpaRepository<Subtopic, Long> {
+public interface TopicRepository extends JpaRepository<Topic, Long> {
 }

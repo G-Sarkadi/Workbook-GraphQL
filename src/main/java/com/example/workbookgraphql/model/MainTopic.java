@@ -16,7 +16,4 @@ public class MainTopic {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String name;
-    @ManyToMany
-    private List<Subtopic> subtopics;
-
 }

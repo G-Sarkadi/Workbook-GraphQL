@@ -15,20 +15,20 @@ public class QuestionService {
     private AuthorRepository authorRepository;
     private KeywordRepository keywordRepository;
     private MainTopicRepository mainTopicRepository;
-    private SubtopicRepository subtopicRepository;
+    private TopicRepository topicRepository;
 
     @Autowired
     public QuestionService(QuestionRepository questionRepository,
                            AuthorRepository authorRepository,
                            KeywordRepository keywordRepository,
                            MainTopicRepository mainTopicRepository,
-                           SubtopicRepository subtopicRepository) {
+                           TopicRepository subtopicRepository) {
         this.questionRepository = questionRepository;
         this.authorRepository = authorRepository;
         this.keywordRepository = keywordRepository;
         this.mainTopicRepository = mainTopicRepository;
-        this.subtopicRepository = subtopicRepository;
-        init();
+        this.topicRepository = subtopicRepository;
+//        init();
     }
 
     public List<Question> getAllQuestions(Integer limit) {
@@ -45,18 +45,19 @@ public class QuestionService {
         return questionRepository.findByModule(module, PageRequest.of(0, limit));
     }
 
-    public List<Question> getQuestionsFromTopic(MainTopic mainTopic, Integer limit) {
+    public List<Question> getQuestionsFromTopic(Topic topic, Integer limit) {
         if (limit == null) {
-            return questionRepository.findByTopicName(mainTopic.getName());
+            return questionRepository.findByTopicName(topic.getName());
         }
-        return questionRepository.findByTopicName(mainTopic.getName(), PageRequest.of(0, limit));
+        return questionRepository.findByTopicName(topic.getName(), PageRequest.of(0, limit));
     }
 
-    public List<Question> getQuestionsFromSubTopic(List<String> input, Integer limit) {
-        if (limit == null) {
-            return questionRepository.findBySubtopicName(input);
+
+    public List<Question> getQuestionsFromMainTopic(MainTopic mainTopic, Integer limit) {
+        if (limit == null){
+            return questionRepository.findByTopicMainTopicName(mainTopic.getName());
         }
-        return questionRepository.findBySubtopicName(input, limit);
+        return questionRepository.findByTopicMainTopicName(mainTopic.getName(), PageRequest.of(0, limit));
     }
 
     public List<Question> getQuestionsByKeyword(List<String> keywords, Integer limit) {
@@ -69,93 +70,54 @@ public class QuestionService {
     private void init() {
         Author auth1 = authorRepository.save(Author.builder().name("SG").build());
 
-        Keyword keyword1 = keywordRepository.save(Keyword.builder().name("python").build());
-        Keyword keyword2 = keywordRepository.save(Keyword.builder().name("java").build());
-        Keyword keyword3 = keywordRepository.save(Keyword.builder().name("sql").build());
+        Keyword python = keywordRepository.save(Keyword.builder().name("python").build());
+        Keyword java = keywordRepository.save(Keyword.builder().name("java").build());
+        Keyword sql = keywordRepository.save(Keyword.builder().name("sql").build());
 
-        Subtopic subtopicDataStruct = subtopicRepository.save(Subtopic.builder().name("Data structures").build());
-        Subtopic subtopicAlgorithm = subtopicRepository.save(Subtopic.builder().name("Algorithms").build());
-        Subtopic subtopicDatabase = subtopicRepository.save(Subtopic.builder().name("Database").build());
-        Subtopic subtopicOther = subtopicRepository.save(Subtopic.builder().name("Other").build());
-        Subtopic subtopicPython = subtopicRepository.save(Subtopic.builder().name("Python").build());
-        Subtopic subtopicSQL = subtopicRepository.save(Subtopic.builder().name("SQL").build());
-        Subtopic subtopicHtmlCss = subtopicRepository.save(Subtopic.builder().name("HTML/CSS").build());
-        Subtopic subtopicJavaScript = subtopicRepository.save(Subtopic.builder().name("JavaScript").build());
-        Subtopic subtopicJava = subtopicRepository.save(Subtopic.builder().name("Java").build());
-        Subtopic subtopicSpring = subtopicRepository.save(Subtopic.builder().name("Spring").build());
-        Subtopic subtopicProceduralProgr = subtopicRepository.save(Subtopic.builder().name("Procedural programming").build());
-        Subtopic subtopicFunctional = subtopicRepository.save(Subtopic.builder().name("Functional programming").build());
-        Subtopic subtopicOOP = subtopicRepository.save(Subtopic.builder().name("Object-oriented programming").build());
-        Subtopic subtopicArchitectures = subtopicRepository.save(Subtopic.builder().name("Architectures").build());
-        Subtopic subtopicDebugging = subtopicRepository.save(Subtopic.builder().name("Debugging").build());
-        Subtopic subtopicVersionControl = subtopicRepository.save(Subtopic.builder().name("Version control").build());
-        Subtopic subtopicDevOps = subtopicRepository.save(Subtopic.builder().name("DevOps").build());
-        Subtopic subtopicTesting = subtopicRepository.save(Subtopic.builder().name("Testing").build());
-        Subtopic subtopicNetwork = subtopicRepository.save(Subtopic.builder().name("Network").build());
-        Subtopic subtopicSoftwareMeth = subtopicRepository.save(Subtopic.builder().name("Software methodologies").build());
-        Subtopic subtopicOrmJpa= subtopicRepository.save(Subtopic.builder().name("ORM/JPA").build());
-        Subtopic subtopicCleanCode = subtopicRepository.save(Subtopic.builder().name("Clean code").build());
-        Subtopic subtopicErrorHandling = subtopicRepository.save(Subtopic.builder().name("Error handling").build());
-        Subtopic subtopicSecurity = subtopicRepository.save(Subtopic.builder().name("Security").build());
-        Subtopic subtopicThreaded = subtopicRepository.save(Subtopic.builder().name("Threaded programming").build());
-        Subtopic subtopicSoftwareDev = subtopicRepository.save(Subtopic.builder().name("Software development methodologies").build());
-        Subtopic subtopicUnixLinux = subtopicRepository.save(Subtopic.builder().name("Unix/Linux").build());
+        MainTopic ComputerScience = mainTopicRepository.save(MainTopic.builder().name("Computer science").build());
+        MainTopic ProgrammingLanguages = mainTopicRepository.save(MainTopic.builder().name("Programming languages").build());
+        MainTopic ProgrammingParadigms = mainTopicRepository.save(MainTopic.builder().name("Programming paradigms").build());
+        MainTopic SoftwareEngineering = mainTopicRepository.save(MainTopic.builder().name("Software engineering").build());
+        MainTopic SoftwareDesign = mainTopicRepository.save(MainTopic.builder().name("Software design").build());
+        MainTopic SoftwareDevelopment = mainTopicRepository.save(MainTopic.builder().name("Software development").build());
+        MainTopic ProgrammingEnvironment = mainTopicRepository.save(MainTopic.builder().name("Programming environment").build());
 
-        MainTopic mtp1 = MainTopic.builder()
-                .name("Computer science")
-                .subtopics(Arrays.asList(subtopicAlgorithm, subtopicDataStruct, subtopicDatabase, subtopicOther))
-                .build();
-        MainTopic ComputerScience = mainTopicRepository.save(mtp1);
-        MainTopic mtp2 = MainTopic.builder()
-                .name("Programming languages")
-                .subtopics(Arrays.asList(subtopicPython, subtopicSQL, subtopicHtmlCss, subtopicJavaScript, subtopicJava, subtopicSpring))
-                .build();
-        MainTopic ProgrammingLanguages = mainTopicRepository.save(mtp2);
-        MainTopic mtp3 = MainTopic.builder()
-                .name("Programming paradigms")
-                .subtopics(Arrays.asList(subtopicProceduralProgr, subtopicFunctional, subtopicOOP))
-                .build();
-        MainTopic ProgrammingParadigms = mainTopicRepository.save(mtp3);
-        MainTopic mtp4 = MainTopic.builder()
-                .name("Computer science")
-                .subtopics(Arrays.asList(subtopicArchitectures, subtopicDebugging, subtopicVersionControl, subtopicDevOps, subtopicTesting, subtopicNetwork, subtopicSoftwareMeth, subtopicOrmJpa))
-                .build();
-        MainTopic SowtwareEngineering = mainTopicRepository.save(mtp4);
-        MainTopic mtp5 = MainTopic.builder()
-                .name("Software design")
-                .subtopics(Arrays.asList(subtopicCleanCode, subtopicErrorHandling, subtopicSecurity, subtopicThreaded))
-                .build();
-        MainTopic SoftwareDesign = mainTopicRepository.save(mtp5);
-        MainTopic mtp6 = MainTopic.builder()
-                .name("Software development")
-                .subtopics(Arrays.asList(subtopicSoftwareDev))
-                .build();
-        MainTopic SoftwareDevelopment = mainTopicRepository.save(mtp6);
-        MainTopic mtp7 = MainTopic.builder()
-                .name("Programming environment")
-                .subtopics(Arrays.asList(subtopicUnixLinux))
-                .build();
-        MainTopic ProgrammingEnvironment = mainTopicRepository.save(mtp7);
+        Topic Algorithm = topicRepository.save(Topic.builder().name("Algorithms").mainTopic(ComputerScience).build());
+        Topic DataStructures = topicRepository.save(Topic.builder().name("Data structures").mainTopic(ComputerScience).build());
+        Topic Database = topicRepository.save(Topic.builder().name("Database").mainTopic(ComputerScience).build());
+        Topic Other = topicRepository.save(Topic.builder().name("Other").mainTopic(ComputerScience).build());
+        Topic Python = topicRepository.save(Topic.builder().name("Python").mainTopic(ProgrammingLanguages).build());
+        Topic SQL = topicRepository.save(Topic.builder().name("SQL").mainTopic(ProgrammingLanguages).build());
+
 
         questionRepository.save(Question.builder()
                 .question("What is the purpose of a list (array in some programming languages) data structure? Name some methods of it!")
-                .answer("""
-                        A list can contain multiple items (strings, other lists, numbers, etc.) in one variable. The items in the list are ordered, iterable and changeable (-> the list is mutable even when some of the elements are not). The items in the list can be sorted, removed or indexed, or new items can be added to the list. We can address the list elements by their index or by their value.\tThe syntax is:   name_of_list = [item_1, item_2, item_3].
-
-                        my_list.remove(<value>)         # Removes item with the given value
-                        my_list.pop(<index>)            # Removes item with the given index
-                        my_list.append(<value>)         # Adds item to the last place
-                        my_list.insert(<index>, <value>)# Adds item to the given index
-                        my_list[<index>]                # Returns value of given index
-                        my_list.index(<value>)          # Returns index of given value
-                        my_list[<index>] = <value>      # Redefines item on the given index to the given value
-                        len(my_list)                    # Returns list length
-                        my_list.sort()                  # Sorts list in place""")
+                .answer("A list can contain multiple items (strings, other lists, numbers, etc.) in one variable. The items in the list are ordered, iterable and changeable (-> the list is mutable even when some of the elements are not). The items in the list can be sorted, removed or indexed, or new items can be added to the list. We can address the list elements by their index or by their value. The syntax is: name_of_list = [item_1, item_2, item_3].")
                 .author(auth1)
-                .topic(ComputerScience)
-                .keywords(Arrays.asList(keyword1, keyword2))
+                .topic(DataStructures)
+                .keywords(Arrays.asList(python))
                 .module(ModuleRoom.PROGBASICS)
                 .build());
+
+        questionRepository.save(Question.builder()
+                .question("What is the difference between a list/array and a set?")
+                .answer("The set can only contain a value once, while the list can contain it multiple times. The set items are unordered while the list items are ordered. Both are iterables, but because sets are unordered, can't access their values by indexing. Set items are unchangeable but we can remove or add items later. Sets can be used to filter out multiple instances from a list. The syntax is: name_of_set = {item_1, item_2, item_3}")
+                .author(auth1)
+                .topic(DataStructures)
+                .keywords(Arrays.asList(python))
+                .module(ModuleRoom.PROGBASICS)
+                .build());
+
+        questionRepository.save(Question.builder()
+                .question("What is the purpose and methods of a dictionary/map data structure")
+                .answer("A dictionary holds data in key/value pairs. We can access it by calling a key in the dictionary and it returns the data stored in the value. Those key/value pairs can be removed, changed or new pairs can added. From Python 3.6 dictionaries are ordered. The syntax is: name_of_dictionary = {key_1: value_1, key_2: value_2, key_3: value_3}")
+                .author(auth1)
+                .topic(SQL)
+                .keywords(Arrays.asList(python))
+                .module(ModuleRoom.PROGBASICS)
+                .build());
+
+
 
     }
 
