@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class QuestionService {
@@ -29,7 +28,7 @@ public class QuestionService {
         this.keywordRepository = keywordRepository;
         this.mainTopicRepository = mainTopicRepository;
         this.subtopicRepository = subtopicRepository;
-//        init();
+        init();
     }
 
     public List<Question> getAllQuestions(Integer limit) {
@@ -68,56 +67,95 @@ public class QuestionService {
     }
 
     private void init() {
-        Author auth1 = authorRepository.save(Author.builder().name("Bob").build());
+        Author auth1 = authorRepository.save(Author.builder().name("SG").build());
 
         Keyword keyword1 = keywordRepository.save(Keyword.builder().name("python").build());
         Keyword keyword2 = keywordRepository.save(Keyword.builder().name("java").build());
         Keyword keyword3 = keywordRepository.save(Keyword.builder().name("sql").build());
 
-        Subtopic subtopic1 = subtopicRepository.save(Subtopic.builder().name("sub topic1").build());
-        Subtopic subtopic2 = subtopicRepository.save(Subtopic.builder().name("sub topic2").build());
-        Subtopic subtopic3 = subtopicRepository.save(Subtopic.builder().name("sub topic3").build());
+        Subtopic subtopicDataStruct = subtopicRepository.save(Subtopic.builder().name("Data structures").build());
+        Subtopic subtopicAlgorithm = subtopicRepository.save(Subtopic.builder().name("Algorithms").build());
+        Subtopic subtopicDatabase = subtopicRepository.save(Subtopic.builder().name("Database").build());
+        Subtopic subtopicOther = subtopicRepository.save(Subtopic.builder().name("Other").build());
+        Subtopic subtopicPython = subtopicRepository.save(Subtopic.builder().name("Python").build());
+        Subtopic subtopicSQL = subtopicRepository.save(Subtopic.builder().name("SQL").build());
+        Subtopic subtopicHtmlCss = subtopicRepository.save(Subtopic.builder().name("HTML/CSS").build());
+        Subtopic subtopicJavaScript = subtopicRepository.save(Subtopic.builder().name("JavaScript").build());
+        Subtopic subtopicJava = subtopicRepository.save(Subtopic.builder().name("Java").build());
+        Subtopic subtopicSpring = subtopicRepository.save(Subtopic.builder().name("Spring").build());
+        Subtopic subtopicProceduralProgr = subtopicRepository.save(Subtopic.builder().name("Procedural programming").build());
+        Subtopic subtopicFunctional = subtopicRepository.save(Subtopic.builder().name("Functional programming").build());
+        Subtopic subtopicOOP = subtopicRepository.save(Subtopic.builder().name("Object-oriented programming").build());
+        Subtopic subtopicArchitectures = subtopicRepository.save(Subtopic.builder().name("Architectures").build());
+        Subtopic subtopicDebugging = subtopicRepository.save(Subtopic.builder().name("Debugging").build());
+        Subtopic subtopicVersionControl = subtopicRepository.save(Subtopic.builder().name("Version control").build());
+        Subtopic subtopicDevOps = subtopicRepository.save(Subtopic.builder().name("DevOps").build());
+        Subtopic subtopicTesting = subtopicRepository.save(Subtopic.builder().name("Testing").build());
+        Subtopic subtopicNetwork = subtopicRepository.save(Subtopic.builder().name("Network").build());
+        Subtopic subtopicSoftwareMeth = subtopicRepository.save(Subtopic.builder().name("Software methodologies").build());
+        Subtopic subtopicOrmJpa= subtopicRepository.save(Subtopic.builder().name("ORM/JPA").build());
+        Subtopic subtopicCleanCode = subtopicRepository.save(Subtopic.builder().name("Clean code").build());
+        Subtopic subtopicErrorHandling = subtopicRepository.save(Subtopic.builder().name("Error handling").build());
+        Subtopic subtopicSecurity = subtopicRepository.save(Subtopic.builder().name("Security").build());
+        Subtopic subtopicThreaded = subtopicRepository.save(Subtopic.builder().name("Threaded programming").build());
+        Subtopic subtopicSoftwareDev = subtopicRepository.save(Subtopic.builder().name("Software development methodologies").build());
+        Subtopic subtopicUnixLinux = subtopicRepository.save(Subtopic.builder().name("Unix/Linux").build());
+
         MainTopic mtp1 = MainTopic.builder()
-                .name("main topic")
-                .subtopics(Arrays.asList(subtopic1, subtopic2))
+                .name("Computer science")
+                .subtopics(Arrays.asList(subtopicAlgorithm, subtopicDataStruct, subtopicDatabase, subtopicOther))
                 .build();
-        MainTopic mainTopic1 = mainTopicRepository.save(mtp1);
+        MainTopic ComputerScience = mainTopicRepository.save(mtp1);
         MainTopic mtp2 = MainTopic.builder()
-                .name("another main topic")
-                .subtopics(Arrays.asList(subtopic1, subtopic3))
+                .name("Programming languages")
+                .subtopics(Arrays.asList(subtopicPython, subtopicSQL, subtopicHtmlCss, subtopicJavaScript, subtopicJava, subtopicSpring))
                 .build();
-        MainTopic mainTopic2 = mainTopicRepository.save(mtp2);
+        MainTopic ProgrammingLanguages = mainTopicRepository.save(mtp2);
+        MainTopic mtp3 = MainTopic.builder()
+                .name("Programming paradigms")
+                .subtopics(Arrays.asList(subtopicProceduralProgr, subtopicFunctional, subtopicOOP))
+                .build();
+        MainTopic ProgrammingParadigms = mainTopicRepository.save(mtp3);
+        MainTopic mtp4 = MainTopic.builder()
+                .name("Computer science")
+                .subtopics(Arrays.asList(subtopicArchitectures, subtopicDebugging, subtopicVersionControl, subtopicDevOps, subtopicTesting, subtopicNetwork, subtopicSoftwareMeth, subtopicOrmJpa))
+                .build();
+        MainTopic SowtwareEngineering = mainTopicRepository.save(mtp4);
+        MainTopic mtp5 = MainTopic.builder()
+                .name("Software design")
+                .subtopics(Arrays.asList(subtopicCleanCode, subtopicErrorHandling, subtopicSecurity, subtopicThreaded))
+                .build();
+        MainTopic SoftwareDesign = mainTopicRepository.save(mtp5);
+        MainTopic mtp6 = MainTopic.builder()
+                .name("Software development")
+                .subtopics(Arrays.asList(subtopicSoftwareDev))
+                .build();
+        MainTopic SoftwareDevelopment = mainTopicRepository.save(mtp6);
+        MainTopic mtp7 = MainTopic.builder()
+                .name("Programming environment")
+                .subtopics(Arrays.asList(subtopicUnixLinux))
+                .build();
+        MainTopic ProgrammingEnvironment = mainTopicRepository.save(mtp7);
 
-        Question question1 = Question.builder()
-                .question("kérdés?")
-                .answer("válasz!")
+        questionRepository.save(Question.builder()
+                .question("What is the purpose of a list (array in some programming languages) data structure? Name some methods of it!")
+                .answer("""
+                        A list can contain multiple items (strings, other lists, numbers, etc.) in one variable. The items in the list are ordered, iterable and changeable (-> the list is mutable even when some of the elements are not). The items in the list can be sorted, removed or indexed, or new items can be added to the list. We can address the list elements by their index or by their value.\tThe syntax is:   name_of_list = [item_1, item_2, item_3].
+
+                        my_list.remove(<value>)         # Removes item with the given value
+                        my_list.pop(<index>)            # Removes item with the given index
+                        my_list.append(<value>)         # Adds item to the last place
+                        my_list.insert(<index>, <value>)# Adds item to the given index
+                        my_list[<index>]                # Returns value of given index
+                        my_list.index(<value>)          # Returns index of given value
+                        my_list[<index>] = <value>      # Redefines item on the given index to the given value
+                        len(my_list)                    # Returns list length
+                        my_list.sort()                  # Sorts list in place""")
                 .author(auth1)
-                .topic(mainTopic1)
+                .topic(ComputerScience)
                 .keywords(Arrays.asList(keyword1, keyword2))
-                .module(ModuleRoom.WEB)
-                .build();
-
-        Question question2 = Question.builder()
-                .question("question?")
-                .answer("answer!")
-                .author(auth1)
-                .topic(mainTopic1)
-                .keywords(Arrays.asList(keyword1, keyword3))
-                .module(ModuleRoom.WEB)
-                .build();
-
-        Question question3 = Question.builder()
-                .question("????")
-                .answer("!!!!!")
-                .author(auth1)
-                .topic(mainTopic2)
-                .keywords(Arrays.asList(keyword2, keyword3))
-                .module(ModuleRoom.OOP)
-                .build();
-
-        questionRepository.save(question1);
-        questionRepository.save(question2);
-        questionRepository.save(question3);
+                .module(ModuleRoom.PROGBASICS)
+                .build());
 
     }
 

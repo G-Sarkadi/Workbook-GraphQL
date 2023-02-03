@@ -19,6 +19,7 @@ public class Question {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String question;
+    @Column(columnDefinition="TEXT")
     private String answer;
     @Enumerated(EnumType.STRING)
     private ModuleRoom module;
