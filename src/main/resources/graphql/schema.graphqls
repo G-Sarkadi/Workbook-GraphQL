@@ -1,11 +1,45 @@
+schema {
+    query: Query
+}
+
+type Query {
+    # Fetch questions with an optional limit
+    questions(limit: Int): [Question]!
+    # Fetch questions based on the module/room
+    module(module: Module!, limit: Int): [Question]!
+    # Fetch questions based on the main topic
+    mainTopics(mainTopic: MainTopicInput!, limit: Int): [Question]!
+    # Fetch questions based on the subtopics
+    subtopics(subtopics: [String]!, limit: Int): [Question]!
+    # Fetch questions based on the keywords
+    keywords(keywords: [String!]!, limit: Int): [Question]!
+}
+
 type Question {
+    # Question id
     id: ID!
+    # The question
     question: String!
+    # The answer
     answer: String!
+    # The module/room it belongs
     module: Module!
+    # The main topic and subtopic of the question
     topic: MainTopic!
+    # Keywords of the question
     keywords: [Keyword]!
+    # Author of the answer
     author: Author!
+}
+
+type Author {
+    id: ID!
+    name: String!
+}
+
+type Keyword {
+    id: ID!
+    keyword: String!
 }
 
 type MainTopic {
@@ -19,35 +53,13 @@ type Subtopic {
     name: String!
 }
 
-type Author {
-    id: ID!
-    name: String!
-}
-
-type Keyword {
-    id: ID!
-    keyword: String!
-}
-
 enum Module {
     PROGBASICS
     WEB
-    OOP
     ADVANCED
+    OOP
 }
 
 input MainTopicInput {
     name: String!
-}
-
-#input SubtopicInput {
-#    name: [String]!
-#}
-
-type Query {
-    questions(limit: Int): [Question]!
-    module(module: Module!, limit: Int): [Question]!
-    mainTopics(mainTopic: MainTopicInput!, limit: Int): [Question]!
-    subtopics(subtopics: [String]!, limit: Int): [Question]!
-    keywords(keywords: [String!]!, limit: Int): [Question]!
 }
