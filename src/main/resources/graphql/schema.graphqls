@@ -75,7 +75,7 @@ input QuestionInput {
 
 input TopicInput {
     name: String!
-    mainTopic: MainTopicInput
+    mainTopic: MainTopicInput!
 }
 
 input MainTopicInput {

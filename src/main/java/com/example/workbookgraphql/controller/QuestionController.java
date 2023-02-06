@@ -42,7 +42,6 @@ public class QuestionController {
 
     @SchemaMapping(typeName = "Mutation")
     public Question addQuestion(@Argument("question") Question question) {
-        Question q = questionService.addNewQuestion(question);
-        return q;
+        return questionService.addNewQuestion(question);
     }
 }
