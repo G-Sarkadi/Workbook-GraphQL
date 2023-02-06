@@ -32,6 +32,10 @@ type Question {
     author: Author!
 }
 
+type Mutation {
+    addQuestion(question: QuestionInput!): Question
+}
+
 type Author {
     id: ID!
     name: String!
@@ -60,10 +64,28 @@ enum Module {
     OOP
 }
 
+input QuestionInput {
+    question: String!
+    answer: String!
+    module: Module!
+    author: AuthorInput!
+    keywords: [KeywordInput]!
+    topic: TopicInput!
+}
+
 input TopicInput {
     name: String!
+    mainTopic: MainTopicInput
 }
 
 input MainTopicInput {
+    name: String!
+}
+
+input AuthorInput {
+    name: String!
+}
+
+input KeywordInput {
     name: String!
 }

@@ -5,6 +5,7 @@ import com.example.workbookgraphql.service.QuestionService;
 import lombok.AllArgsConstructor;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
+import org.springframework.graphql.data.method.annotation.SchemaMapping;
 import org.springframework.stereotype.Controller;
 
 import java.util.List;
@@ -37,5 +38,11 @@ public class QuestionController {
     @QueryMapping
     public List<Question> keywords(@Argument("keywords") List<String> keywords, @Argument Integer limit) {
         return questionService.getQuestionsByKeyword(keywords, limit);
+    }
+
+    @SchemaMapping(typeName = "Mutation")
+    public Question addQuestion(@Argument("question") Question question) {
+        Question q = questionService.addNewQuestion(question);
+        return q;
     }
 }

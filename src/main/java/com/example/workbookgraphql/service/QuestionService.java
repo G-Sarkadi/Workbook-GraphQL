@@ -67,6 +67,12 @@ public class QuestionService {
         return questionRepository.findByKeywords(keywords, limit);
     }
 
+    public Question addNewQuestion(Question question) {
+        return questionRepository.save(question);
+    }
+
+
+
     private void init() {
         Author auth1 = authorRepository.save(Author.builder().name("SG").build());
 

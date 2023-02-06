@@ -15,6 +15,6 @@ public class Topic {
     private Long id;
     private String name;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     private MainTopic mainTopic;
 }

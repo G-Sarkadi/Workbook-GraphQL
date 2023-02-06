@@ -1,10 +1,7 @@
 package com.example.workbookgraphql.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.List;
 
@@ -12,6 +9,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
+@Setter
 @Builder
 public class Question {
 
@@ -23,11 +21,11 @@ public class Question {
     private String answer;
     @Enumerated(EnumType.STRING)
     private ModuleRoom module;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     private Topic topic;
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     private List<Keyword> keywords;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     private Author author;
 
 }
