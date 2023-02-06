@@ -2,12 +2,10 @@ package com.example.workbookgraphql.service;
 
 import com.example.workbookgraphql.model.*;
 import com.example.workbookgraphql.repository.*;
-import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import java.beans.Transient;
 import java.util.Arrays;
 import java.util.List;
 
@@ -88,6 +86,16 @@ public class QuestionService {
                 .module(ModuleRoom.PROGBASICS)
                 .build();
         questionRepository.save(q1);
+
+//        Question q2 = Question.builder()
+//                .question("This is an entirely different question")
+//                .answer("This is an entirely different answer")
+//                .author(author)
+//                .topic(topic)
+//                .keywords(Arrays.asList(keyword1))
+//                .module(ModuleRoom.WEB)
+//                .build();
+//        questionRepository.save(q2);
 
 
 
