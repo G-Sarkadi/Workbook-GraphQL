@@ -1,7 +1,5 @@
 package com.example.workbookgraphql.repository;
 
-import com.example.workbookgraphql.model.Keyword;
-import com.example.workbookgraphql.model.MainTopic;
 import com.example.workbookgraphql.model.ModuleRoom;
 import com.example.workbookgraphql.model.Question;
 import org.springframework.data.domain.Pageable;
@@ -10,11 +8,14 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface QuestionRepository extends JpaRepository<Question, Long> {
     @Query("SELECT q FROM Question q ORDER BY q.id DESC")
     List<Question> getAllQuestionsWithLimit(Pageable pageable);
+
+    Optional<Question> findByQuestion(String question);
 
     List<Question> findByModule(ModuleRoom module);
 
@@ -54,4 +55,5 @@ public interface QuestionRepository extends JpaRepository<Question, Long> {
     List<Question> findByTopicMainTopicName(String mainTopic);
 
     List<Question> findByTopicMainTopicName(String mainTopic, Pageable pageable);
+
 }

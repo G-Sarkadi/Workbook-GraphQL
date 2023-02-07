@@ -8,14 +8,15 @@ import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class QuestionService {
-    private QuestionRepository questionRepository;
-    private AuthorRepository authorRepository;
-    private KeywordRepository keywordRepository;
-    private MainTopicRepository mainTopicRepository;
-    private TopicRepository topicRepository;
+    private final QuestionRepository questionRepository;
+    private final AuthorRepository authorRepository;
+    private final KeywordRepository keywordRepository;
+    private final MainTopicRepository mainTopicRepository;
+    private final TopicRepository topicRepository;
 
     @Autowired
     public QuestionService(QuestionRepository questionRepository,
@@ -28,7 +29,7 @@ public class QuestionService {
         this.keywordRepository = keywordRepository;
         this.mainTopicRepository = mainTopicRepository;
         this.topicRepository = subtopicRepository;
-        init();
+//        init();
     }
 
     public List<Question> getAllQuestions(Integer limit) {
@@ -68,8 +69,42 @@ public class QuestionService {
     }
 
     public Question addNewQuestion(Question question) {
+        // If the question is already present in the database, just return it
+        Optional<Question> optionalQuestion = questionRepository.findByQuestion(question.getQuestion());
+        if (optionalQuestion.isPresent()){
+            return optionalQuestion.get();
+        }
+
+        // Fetch Author from the database by name if exists
+        Optional<Author> optionalAuthor = authorRepository.findByName(question.getAuthor().getName());
+        optionalAuthor.ifPresent(question::setAuthor);
+
+        // Fetch Topic from the database by name if exists
+        Optional<Topic> optionalTopic = topicRepository.findByName(question.getTopic().getName());
+        if (optionalTopic.isPresent()){
+            question.setTopic(optionalTopic.get());
+        } else {
+            // Check if main topic exists
+            Optional<MainTopic> optionalMainTopic = mainTopicRepository.findByName(question.getTopic().getMainTopic().getName());
+            optionalMainTopic.ifPresent(mainTopic -> question.setTopic(Topic.builder()
+                    .name(question.getTopic().getName())
+                    .mainTopic(mainTopic)
+                    .build()));
+        }
+
+        // Fetch Keywords from the database if they exist
+        List<Keyword> keywords = question.getKeywords();
+        for (int i = 0; i < keywords.size(); i++) {
+            Optional<Keyword> optionalKeyword = keywordRepository.findByName(keywords.get(i).getName());
+            if (optionalKeyword.isPresent()){
+                keywords.set(i, optionalKeyword.get());
+            }
+        }
+        question.setKeywords(keywords);
+
         return questionRepository.save(question);
     }
+
 
     private void init() {
         Author author = Author.builder().name("SG").build();
@@ -95,7 +130,7 @@ public class QuestionService {
                 .keywords(Arrays.asList(keyword1))
                 .module(ModuleRoom.WEB)
                 .build();
-//        addNewQuestion(q2);
+        addNewQuestion(q2);
 
 
     }
