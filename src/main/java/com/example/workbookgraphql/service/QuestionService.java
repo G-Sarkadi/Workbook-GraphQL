@@ -85,18 +85,17 @@ public class QuestionService {
                 .keywords(Arrays.asList(keyword1))
                 .module(ModuleRoom.PROGBASICS)
                 .build();
-        questionRepository.save(q1);
+        addNewQuestion(q1);
 
-//        Question q2 = Question.builder()
-//                .question("This is an entirely different question")
-//                .answer("This is an entirely different answer")
-//                .author(author)
-//                .topic(topic)
-//                .keywords(Arrays.asList(keyword1))
-//                .module(ModuleRoom.WEB)
-//                .build();
-//        questionRepository.save(q2);
-
+        Question q2 = Question.builder()
+                .question("This is an entirely different question")
+                .answer("This is an entirely different answer")
+                .author(author)
+                .topic(topic)
+                .keywords(Arrays.asList(keyword1))
+                .module(ModuleRoom.WEB)
+                .build();
+//        addNewQuestion(q2);
 
 
     }
