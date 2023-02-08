@@ -108,8 +108,8 @@ public class QuestionService {
 
     private void init() {
         Author author = Author.builder().name("SG").build();
-        MainTopic mainTopic = MainTopic.builder().name("Computer Science").build();
-        Topic topic = Topic.builder().name("Algorithms").mainTopic(mainTopic).build();
+        MainTopic mainTopic = MainTopic.builder().name("Computer science").build();
+        Topic topic = Topic.builder().name("Data structures").mainTopic(mainTopic).build();
         Keyword keyword1 = Keyword.builder().name("python").build();
 
         Question q1 = Question.builder()
@@ -121,17 +121,6 @@ public class QuestionService {
                 .module(ModuleRoom.PROGBASICS)
                 .build();
         addNewQuestion(q1);
-
-        Question q2 = Question.builder()
-                .question("This is an entirely different question")
-                .answer("This is an entirely different answer")
-                .author(author)
-                .topic(topic)
-                .keywords(Arrays.asList(keyword1))
-                .module(ModuleRoom.WEB)
-                .build();
-        addNewQuestion(q2);
-
 
     }
 

@@ -12,7 +12,7 @@ import java.util.Optional;
 
 @Repository
 public interface QuestionRepository extends JpaRepository<Question, Long> {
-    @Query("SELECT q FROM Question q ORDER BY q.id DESC")
+    @Query("SELECT q FROM Question q ORDER BY q.id ASC")
     List<Question> getAllQuestionsWithLimit(Pageable pageable);
 
     Optional<Question> findByQuestion(String question);
