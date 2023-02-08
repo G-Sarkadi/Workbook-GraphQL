@@ -21,22 +21,22 @@ public class QuestionController {
     }
 
     @QueryMapping
-    public List<Question> module(@Argument ModuleRoom module, @Argument Integer limit) {
+    public List<Question> questionsByModule(@Argument ModuleRoom module, @Argument Integer limit) {
         return questionService.getQuestionsFromModule(module, limit);
     }
 
     @QueryMapping
-    public List<Question> topic(@Argument("topic") Topic topic, @Argument Integer limit) {
+    public List<Question> questionsByTopic(@Argument("topic") Topic topic, @Argument Integer limit) {
         return questionService.getQuestionsFromTopic(topic, limit);
     }
 
     @QueryMapping
-    public List<Question> mainTopic(@Argument("mainTopic") MainTopic mainTopic, @Argument Integer limit) {
+    public List<Question> questionsByMainTopic(@Argument("mainTopic") MainTopic mainTopic, @Argument Integer limit) {
         return questionService.getQuestionsFromMainTopic(mainTopic, limit);
     }
 
     @QueryMapping
-    public List<Question> keywords(@Argument("keywords") List<String> keywords, @Argument Integer limit) {
+    public List<Question> questionsByKeywords(@Argument("keywords") List<String> keywords, @Argument Integer limit) {
         return questionService.getQuestionsByKeyword(keywords, limit);
     }
 

@@ -6,13 +6,19 @@ type Query {
     # Fetch questions with an optional limit
     questions(limit: Int): [Question]!
     # Fetch questions based on the module/room
-    module(module: Module!, limit: Int): [Question]!
+    questionsByModule(module: Module!, limit: Int): [Question]!
     # Fetch questions based on the main topic
-    mainTopic(mainTopic: MainTopicInput!, limit: Int): [Question]!
+    questionsByMainTopic(mainTopic: MainTopicInput!, limit: Int): [Question]!
     # Fetch questions based on the subtopics
-    topic(topic: TopicInput!, limit: Int): [Question]!
+    questionsByTopic(topic: TopicInput!, limit: Int): [Question]!
     # Fetch questions based on the keywords
-    keywords(keywords: [String!]!, limit: Int): [Question]!
+    questionsByKeywords(keywords: [String!]!, limit: Int): [Question]!
+    # Fetch all MainTopic
+    mainTopics: [MainTopic]!
+    # Fetch all topics
+    topics: [Topic]!
+    # Fetch all Keywords
+    keywords: [Keyword]!
 }
 
 type Question {
@@ -75,7 +81,6 @@ input QuestionInput {
 
 input TopicInput {
     name: String!
-    mainTopic: MainTopicInput!
 }
 
 input MainTopicInput {
