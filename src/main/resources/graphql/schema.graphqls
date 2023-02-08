@@ -79,8 +79,10 @@ input QuestionInput {
     topic: TopicInput!
 }
 
+# TODO check topic input as parameter in query
 input TopicInput {
     name: String!
+    mainTopic: MainTopicInput
 }
 
 input MainTopicInput {
